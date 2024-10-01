@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ form.instance.id|yesno:"Edit Book,Add New Book" }}</title>
+    {% load static %}
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f7f7f7;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+        }
+
+        input[type="text"], textarea, input[type="number"], input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            background-color: #007BFF;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .back-button {
+            background-color: #6c757d;
+            margin-top: 10px;
+        }
+
+        .back-button:hover {
+            background-color: #5a6268;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>{{ form.instance.id|yesno:"Edit Book,Add New Book" }}</h2>
+        
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            <!-- ชื่อหนังสือ -->
+            <div>
+                <label for="id_title">Book Title:</label>
+                {{ form.title }}
+            </div>
+
+            <!-- ผู้แต่ง -->
+            <div>
+                <label for="id_author">Author:</label>
+                {{ form.author }}
+            </div>
+
+            <!-- รายละเอียด -->
+            <div>
+                <label for="id_description">Description:</label>
+                {{ form.description }}
+            </div>
+
+            <!-- ราคา -->
+            <div>
+                <label for="id_price">Price:</label>
+                {{ form.price }}
+            </div>
+
+            <!-- จำนวนสินค้าใน Stock -->
+            <div>
+                <label for="id_stock">Stock:</label>
+                {{ form.stock }}
+            </div>
+
+            <!-- อัพโหลดหน้าปกหนังสือ -->
+            <div>
+                <label for="id_image">Book Cover Image:</label>
+                {{ form.image }}
+            </div>
+
+            <!-- ปุ่ม Submit -->
+            <div>
+                <button type="submit">{{ form.instance.id|yesno:"Update Book,Add Book" }}</button>
+            </div>
+        </form>
+
+        <!-- ปุ่มกลับไปหน้า Book List -->
+        <div>
+            <a href="{% url 'store:book_list' %}" class="back-button">Back to List</a>
+        </div>
+    </div>
+</body>
+</html>
